@@ -84,6 +84,8 @@ public class Simulator {
     	  wallet.setName(newWallet.getName());
     	  wallet.setAddress(newWallet.getAddress());
     	  wallet.setCoinType(newWallet.getCoinType());
+    	  wallet.setBalance(newWallet.getBalance());
+    	  wallet.setNoOfCoins(newWallet.getNoOfCoins());
         return repository.save(wallet);
       })
       .orElseGet(() -> {
@@ -136,7 +138,7 @@ public class Simulator {
    * @return wallet with new number of coins
    * @throws Exception
    */
-  @PutMapping("/buyCoins/{id}//{noOfCoins}")
+  @PutMapping("/buyCoins/{id}/{noOfCoins}")
   Wallet buyCoins(RestTemplate restTemplate, @PathVariable Long id, @PathVariable Integer noOfCoins) throws Exception {
 	  Optional<Wallet> wallet = repository.findById(id);
 	  String coinType = wallet.get().getCoinType();
